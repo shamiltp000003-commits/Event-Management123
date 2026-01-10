@@ -1,0 +1,51 @@
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import path from "path";
+import { fileURLToPath } from "url";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+import SignUp from "./User/routes/signUp.js";
+import Login from "./User/routes/login.js";
+import AddServicess from "./provider/routes/routes.js";
+
+dotenv.config(); // Load environment variables
+
+const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/* ---------- MongoDB Connection ---------- */
+const MONGO_URI = process.env.MONGODB_URL;
+
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("MongoDB connected ✅"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+/* ---------- Middleware ---------- */
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+/* ---------- Static folder ---------- */
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
+/* ---------- Routes ---------- */
+app.use("/api", SignUp);
+app.use("/api", Login);
+app.use("/api", AddServicess);
+
+/* ---------- Server ---------- */
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
