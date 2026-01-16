@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   IoCheckmarkCircleOutline,
@@ -20,6 +20,29 @@ const BookingSuccess = () => {
   const invoiceRef = useRef();
 
   const bookingDetails = location.state?.bookingDetails;
+
+  // Save booking to localStorage when component mounts
+  useEffect(() => {
+    if (bookingDetails) {
+      const bookingId = `WC${Date.now().toString().slice(-8).toUpperCase()}`;
+      const bookingToSave = {
+        ...bookingDetails,
+        bookingId,
+        bookingDate: new Date().toISOString(),
+        status: 'confirmed'
+      };
+
+      // Get existing bookings from localStorage
+      const existingBookings = localStorage.getItem('userBookings');
+      const bookings = existingBookings ? JSON.parse(existingBookings) : [];
+      
+      // Add new booking
+      bookings.push(bookingToSave);
+      
+      // Save back to localStorage
+      localStorage.setItem('userBookings', JSON.stringify(bookings));
+    }
+  }, [bookingDetails]);
 
   const handleDownloadInvoice = () => {
     // Create a printable invoice

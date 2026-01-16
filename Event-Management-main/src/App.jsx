@@ -17,6 +17,7 @@ import ProviderDashboard from './pages/serviceProvider/ProviderDashboard'
 import Bookingdetails from './pages/serviceProvider/Bookingdetails'
 import AddService from './pages/serviceProvider/addService'
 import Review from './pages/serviceProvider/review'
+import FAQ from './pages/serviceProvider/FAQ'
 import Footer from './components/Footer'
 import AuditoriumCreation from './pages/serviceProvider/AuditoriumCreation'
 import CateringCreation from './pages/serviceProvider/CateringCreation'
@@ -25,6 +26,8 @@ import PhotographyCreation from './pages/serviceProvider/PhotographyCreation'
 import UserLayout from './pages/user/UserLayout'
 import ServicesCategory from './pages/user/ServicesCategory'
 import UserBookings from './pages/user/UserBookings'
+import MyProfile from './pages/user/MyProfile'
+import UserFAQ from './pages/user/UserFAQ'
 
 import MyServices from './pages/serviceProvider/MyServices'
 import EditPhotography from './pages/serviceProvider/EditPhotography'
@@ -63,12 +66,14 @@ const App = () => {
           <Route path="/book/:category/:serviceId" element={<EventBookingPage />}/>
           <Route path="/payment" element={<Payment />}/>
           <Route path="/booking-success" element={<BookingSuccess />}/>
+          <Route path="/myprofile" element={<MyProfile />}/>
 
           {/* user Route */}
 
-          <Route path="/user" element={<UserLayout/>}>
-            <Route index element={<ServicesCategory/>} />
-            <Route path="userbookings" element={<UserBookings/>} />
+          <Route path="/user-dashboard" element={<UserLayout/>}>
+            <Route index element={<UserBookings/>} />
+            <Route path="faq" element={<UserFAQ />} />
+            {/* <Route path="userbookings" element={} /> */}
             {/* <Route path="manage-user" element={<ManageUser />} />
             <Route path="settlement-history" element={<SettlementHistory />} />
             <Route path="security" element={<Security />} /> */}
@@ -93,6 +98,7 @@ const App = () => {
             <Route path="add-service/photography" element={<PhotographyCreation/>} />
             <Route path="booking-details" element={<Bookingdetails />} />
             <Route path="review" element={<Review />} />
+            <Route path="faq" element={<FAQ />} />
             <Route path="/provider/my-services" element={<MyServices />} />
             <Route path="/provider/edit/photography/:serviceId" element={<EditPhotography />} />
           </Route>

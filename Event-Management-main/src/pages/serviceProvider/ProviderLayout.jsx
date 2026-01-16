@@ -29,7 +29,9 @@ const ProviderLayout = () => {
       </div>
       <div className="flex h-[calc(100vh-70px)]">
         <Sidebar />
-        <Outlet />
+       <div className="w-full overflow-y-auto">
+       <Outlet />
+       </div>
       </div>
     </>
   );

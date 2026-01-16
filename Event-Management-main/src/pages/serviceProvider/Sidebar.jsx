@@ -4,6 +4,7 @@ import { BsCardChecklist } from 'react-icons/bs'
 import { CgAddR } from 'react-icons/cg'
 import { LuMessageSquareText } from 'react-icons/lu'
 import { RxDashboard } from 'react-icons/rx'
+import { HiQuestionMarkCircle } from 'react-icons/hi'
 import { NavLink } from 'react-router-dom'
 // import { assets } from '../../assets/assets'
 
@@ -33,6 +34,11 @@ const Sidebar = () => {
         <NavLink  to='/provider/my-services' className={({isActive})=> `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer ${isActive && "bg-cyan-800 border-r-4 border-blue-500 text-gray-200"}`}>
            <BiImages />
             <p className='hidden md:inline-block'>My Services</p>
+        </NavLink>
+
+        <NavLink  to='/provider/faq' className={({isActive})=> `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-64 cursor-pointer ${isActive && "bg-cyan-800 border-r-4 border-blue-500 text-gray-200"}`}>
+           <HiQuestionMarkCircle />
+            <p className='hidden md:inline-block'>FAQ</p>
         </NavLink>
     </div>
   )

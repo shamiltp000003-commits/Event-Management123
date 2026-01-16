@@ -28,7 +28,10 @@ const Navbar = () => {
         <NavLink to="/contact">Contact</NavLink>
         <NavLink to="/allevents">All Events</NavLink>
         {user && 
-            <NavLink to="/allevents">All Bookings</NavLink>
+            <>
+              <NavLink to="/user-dashboard">Dashboard</NavLink>
+              <NavLink to="/allevents">All Bookings</NavLink>
+            </>
         }
         {/* search event */}
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
@@ -59,10 +62,19 @@ const Navbar = () => {
 
         {/* Dropdown */}
         {menuOpen && (
-          <ul className="absolute top-10 right-0 bg-white shadow border border-gray-400 py-2.5 w-32 rounded-md text-sm z-50">
+          <ul className="absolute top-10 right-0 bg-white shadow border border-gray-400 py-2.5 w-40 rounded-md text-sm z-50">
             <li
               onClick={() => {
-                navigate("");
+                navigate("/user-dashboard");
+                setMenuOpen(false);
+              }}
+              className="p-1.5 pl-3 hover:bg-blue-400 cursor-pointer"
+            >
+              Dashboard
+            </li>
+            <li
+              onClick={() => {
+                navigate("/myprofile");
                 setMenuOpen(false);
               }}
               className="p-1.5 pl-3 hover:bg-blue-400 cursor-pointer"
@@ -120,6 +132,12 @@ const Navbar = () => {
     All Events
   </NavLink>
 
+  {user && (
+    <NavLink onClick={() => setOpen(false)} to="/user-dashboard" className="text-gray-800 hover:text-indigo-600">
+      Dashboard
+    </NavLink>
+  )}
+
   {!user ? (
     <button
       onClick={() => {
@@ -131,12 +149,21 @@ const Navbar = () => {
       Login
     </button>
   ) : (
-    <button
-      onClick={logout}
-      className="cursor-pointer px-6 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm"
-    >
-      Logout
-    </button>
+    <>
+      <NavLink 
+        onClick={() => setOpen(false)} 
+        to="/myprofile" 
+        className="text-gray-800 hover:text-indigo-600"
+      >
+        My Profile
+      </NavLink>
+      <button
+        onClick={logout}
+        className="cursor-pointer px-6 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm"
+      >
+        Logout
+      </button>
+    </>
   )}
 </div>
 
